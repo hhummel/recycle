@@ -1,7 +1,8 @@
+import os
 from aws_cdk import (
     # Duration,
     Stack,
-    # aws_sqs as sqs,
+    aws_lambda as lambda_,
 )
 from constructs import Construct
 
@@ -17,3 +18,8 @@ class RecycleStack(Stack):
         #     self, "RecycleQueue",
         #     visibility_timeout=Duration.seconds(300),
         # )
+        fn = lambda_.Function(self, "GetTrashZoneLowerMerion",
+            code=lambda_.Code.from_asset(os.path.join(os.getcwd(), "src")),
+            handler="get_trash_zone_lower_merion.lambda_handler",
+            runtime=lambda_.Runtime.PYTHON_3_9
+        )
